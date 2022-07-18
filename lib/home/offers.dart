@@ -138,6 +138,16 @@ class Offers extends StatelessWidget {
                 initialPage: 0,
                 viewportFraction: 1.0,
               )),
+          // CarouselSlider.builder(
+          //     itemCount: model.data?.banners.length,
+          //     itemBuilder: (context, index, p) => Image(
+          //           image: NetworkImage(model.data!.banners[index].image),
+          //           fit: BoxFit.cover,
+          //           width: 400,
+          //         ),
+          //     options: CarouselOptions(
+          //         autoPlay: true, initialPage: 0, viewportFraction: 1.0)),
+
           const SizedBox(
             height: 5,
           ),
