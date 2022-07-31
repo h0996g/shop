@@ -63,6 +63,16 @@ class Offers extends StatelessWidget {
                 textColor: Colors.white,
                 fontSize: 16.0);
           }
+          if (state.model.status) {
+            Fluttertoast.showToast(
+                msg: CupitHome.get(context).changeFavoritesModel!.message,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.green,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
         }
       },
     );
@@ -277,6 +287,7 @@ class Offers extends StatelessWidget {
                               : Colors.grey,
                       child: IconButton(
                         onPressed: () {
+                          print(model.id);
                           CupitHome.get(context).changeFavorites(model.id);
                         },
                         icon: const Icon(

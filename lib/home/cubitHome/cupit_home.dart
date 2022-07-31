@@ -4,6 +4,7 @@ import 'package:agence/home/favorites.dart';
 import 'package:agence/login/other/cachhelper.dart';
 import 'package:agence/modeles/categoriesmodel.dart';
 import 'package:agence/modeles/changeFavoritesModel.dart';
+import 'package:agence/modeles/favoritesModel.dart';
 import 'package:agence/modeles/homemodeles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -91,6 +92,8 @@ class CupitHome extends Cubit<ShopeHomeStates> {
       // print(changeFavoritesModel!.message);
       if (!changeFavoritesModel!.status) {
         favorites[productId] = !favorites[productId]!;
+      } else {
+        getFAvorite();
       }
 
       emit(GoodFavoritesChangeState(changeFavoritesModel!));
@@ -98,6 +101,20 @@ class CupitHome extends Cubit<ShopeHomeStates> {
       favorites[productId] = !favorites[productId]!;
       emit(BadFavoritesChangeState());
       print(e.toString());
+    });
+  }
+
+  Favorite? favoritemodel;
+  void getFAvorite() {
+    emit(LodinGetFevorite());
+    DioHelper.getData(url: FAVORITES, token: TOKEN).then((value) {
+      favoritemodel = Favorite.fromJson(value.data);
+      print(favoritemodel!.data!.currentPage);
+
+      emit(GoodGetFavoriteState());
+    }).catchError((e) {
+      print(e);
+      emit(BadGetFavoriteState());
     });
   }
 }

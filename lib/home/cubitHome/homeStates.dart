@@ -27,3 +27,9 @@ class GoodFavoritesChangeState extends ShopeHomeStates {
 class GoodFavoritesChangeIconState extends ShopeHomeStates {}
 
 class BadFavoritesChangeState extends ShopeHomeStates {}
+
+class GoodGetFavoriteState extends ShopeHomeStates {}
+
+class BadGetFavoriteState extends ShopeHomeStates {}
+
+class LodinGetFevorite extends ShopeHomeStates {}
