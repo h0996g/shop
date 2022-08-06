@@ -2,11 +2,13 @@ import 'package:agence/home/cubitHome/cupit_home.dart';
 import 'package:agence/login/cupitlogin/cupitl.dart';
 import 'package:agence/login/cupitlogin/statesh.dart';
 import 'package:agence/login/other/cachhelper.dart';
+import 'package:agence/shared/components/constante.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../Register/register.dart';
 import '../home/home.dart';
 import '../shared/components/components.dart';
 
@@ -68,42 +70,43 @@ class LoginScreen extends StatelessWidget {
                         height: 30,
                       ),
                       defaultForm(
-                          textInputAction: TextInputAction.done,
-                          controller: passController,
-                          type: TextInputType.visiblePassword,
-                          onFieldSubmitted: () {
-                            if (formKey.currentState!.validate()) {
-                              LoginCubit.get(context).login(
-                                  pass: passController.text,
-                                  email: emailController.text);
-                            }
-                          },
-                          obscureText: LoginCubit.get(context).ishidden,
-                          valid: (value) {
-                            if (value.isEmpty) {
-                              return 'Password Must Be Not Empty';
-                            }
-                          },
-                          lable: Text(
-                            'Password',
-                            style: TextStyle(
-                                color: CupitHome.get(context).dartSwitch
-                                    ? Colors.white
-                                    : Colors.grey),
-                          ),
-                          prefixIcon: Icon(Icons.password,
+                        textInputAction: TextInputAction.done,
+                        controller: passController,
+                        type: TextInputType.visiblePassword,
+                        onFieldSubmitted: () {
+                          if (formKey.currentState!.validate()) {
+                            LoginCubit.get(context).login(
+                                pass: passController.text,
+                                email: emailController.text);
+                          }
+                        },
+                        obscureText: LoginCubit.get(context).ishidden,
+                        valid: (value) {
+                          if (value.isEmpty) {
+                            return 'Password Must Be Not Empty';
+                          }
+                        },
+                        lable: Text(
+                          'Password',
+                          style: TextStyle(
                               color: CupitHome.get(context).dartSwitch
                                   ? Colors.white
                                   : Colors.grey),
-                          sufixIcon: IconButton(
-                            onPressed: () {
-                              LoginCubit.get(context).showpass();
-                            },
-                            icon: LoginCubit.get(context).iconhidden,
+                        ),
+                        prefixIcon: Icon(Icons.password,
                             color: CupitHome.get(context).dartSwitch
                                 ? Colors.white
-                                : Colors.grey,
-                          )),
+                                : Colors.grey),
+                        sufixIcon: IconButton(
+                          onPressed: () {
+                            LoginCubit.get(context).showpass();
+                          },
+                          icon: LoginCubit.get(context).iconhidden,
+                          color: CupitHome.get(context).dartSwitch
+                              ? Colors.white
+                              : Colors.grey,
+                        ),
+                      ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -136,7 +139,12 @@ class LoginScreen extends StatelessWidget {
                       Center(
                         child: TextButton(
                           child: const Text('Register Now '),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Register()));
+                          },
                         ),
                       ),
                     ],
@@ -149,9 +157,9 @@ class LoginScreen extends StatelessWidget {
       },
       listener: (BuildContext context, Object? state) {
         if (state is GoodLoginState) {
-          if (state.mod.status) {
+          if (state.mod.status!) {
             Fluttertoast.showToast(
-                msg: state.mod.message,
+                msg: state.mod.message!,
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
@@ -160,6 +168,13 @@ class LoginScreen extends StatelessWidget {
                 fontSize: 16.0);
             CachHelper.putcache(key: 'token', value: state.mod.data?.token)
                 .then((value) {
+              TOKEN = state.mod.data!.token!;
+
+              CupitHome.get(context).getHomeData();
+              CupitHome.get(context).getFAvorite();
+              CupitHome.get(context).userDetail();
+              // CupitHome.get(context).profilemodel =
+              //     LoginCubit.get(context).loginonfomodel;
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => const Home()),
@@ -167,7 +182,7 @@ class LoginScreen extends StatelessWidget {
             });
           } else {
             Fluttertoast.showToast(
-                msg: state.mod.message,
+                msg: state.mod.message!,
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,

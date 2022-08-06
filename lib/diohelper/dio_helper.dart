@@ -28,7 +28,7 @@ class DioHelper {
       {required url,
       Map<String, dynamic>? query,
       required Map<String, dynamic> data,
-      String Lang = 'en',
+      String Lang = 'ar',
       String? token}) async {
     dio.options.headers = {
       'lang': 'en',

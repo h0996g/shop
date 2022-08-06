@@ -2,6 +2,7 @@ import 'package:agence/diohelper/dio_helper.dart';
 import 'package:agence/home/favorites.dart';
 
 import 'package:agence/login/other/cachhelper.dart';
+import 'package:agence/modeles/Loginmodeles.dart';
 import 'package:agence/modeles/categoriesmodel.dart';
 import 'package:agence/modeles/changeFavoritesModel.dart';
 import 'package:agence/modeles/favoritesModel.dart';
@@ -115,6 +116,18 @@ class CupitHome extends Cubit<ShopeHomeStates> {
     }).catchError((e) {
       print(e);
       emit(BadGetFavoriteState());
+    });
+  }
+
+  LoginModel? profilemodel;
+  void userDetail() {
+    emit(LodinGetUserDataState());
+    DioHelper.getData(url: PROFILE, token: TOKEN).then((value) {
+      profilemodel = LoginModel.fromjson(value.data);
+      print(profilemodel!.data!.email);
+      emit(GoodGetUserDataState());
+    }).catchError((error) {
+      emit(BadGetUserDataState());
     });
   }
 }

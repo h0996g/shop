@@ -33,3 +33,9 @@ class GoodGetFavoriteState extends ShopeHomeStates {}
 class BadGetFavoriteState extends ShopeHomeStates {}
 
 class LodinGetFevorite extends ShopeHomeStates {}
+
+class GoodGetUserDataState extends ShopeHomeStates {}
+
+class BadGetUserDataState extends ShopeHomeStates {}
+
+class LodinGetUserDataState extends ShopeHomeStates {}

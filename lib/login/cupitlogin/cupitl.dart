@@ -9,18 +9,18 @@ class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(InitialState());
   static LoginCubit get(context) => BlocProvider.of(context);
   Icon iconhidden = Icon(Icons.visibility);
-  late LoginModel json;
+  LoginModel? loginonfomodel;
 
   void login({required String pass, required String email}) {
     emit(ConditionalLodinState());
     DioHelper.postData(url: LOGIN, data: {'email': email, 'password': pass})
         .then((value) {
       // print(value.data);
-      json = LoginModel.fromjson(value.data);
-      print(json.status);
-      print(json.data?.token);
-      print(json.data?.email);
-      emit(GoodLoginState(json));
+      loginonfomodel = LoginModel.fromjson(value.data);
+      print(loginonfomodel!.status);
+      print(loginonfomodel!.data!.token);
+      print(loginonfomodel!.data!.email);
+      emit(GoodLoginState(loginonfomodel!));
     }).catchError((error) {
       print(error.toString());
       emit(BadLoginState(error));

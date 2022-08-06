@@ -1,3 +1,4 @@
+import 'package:agence/home/profile.dart';
 import 'package:agence/login/login.dart';
 import 'package:agence/login/other/cachhelper.dart';
 import 'package:flutter/material.dart';
@@ -40,9 +41,18 @@ class Setting extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(
-                    'Account',
-                    style: Theme.of(context).textTheme.headline6,
+                  Expanded(
+                    child: TextButton(
+                      style: const ButtonStyle(alignment: Alignment.topLeft),
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Profile()));
+                      },
+                      child: Text(
+                        'Account',
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ),
                   ),
                 ],
               ),

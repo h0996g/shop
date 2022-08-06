@@ -60,7 +60,8 @@ class MyApp extends StatelessWidget {
               ..getHomeData()
               ..getCategories()
               ..changeSwitch(darkswitchmain: darkswitchmain)
-              ..getFAvorite()),
+              ..getFAvorite()
+              ..userDetail()),
         BlocProvider(create: (context) => CupitMain()),
         BlocProvider(create: (context) => LoginCubit()),
       ],
