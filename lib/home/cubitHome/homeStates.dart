@@ -39,3 +39,9 @@ class GoodGetUserDataState extends ShopeHomeStates {}
 class BadGetUserDataState extends ShopeHomeStates {}
 
 class LodinGetUserDataState extends ShopeHomeStates {}
+
+class GoodUpdateProfileState extends ShopeHomeStates {}
+
+class BadUpdateProfileState extends ShopeHomeStates {}
+
+class LodinUpdateProfileState extends ShopeHomeStates {}

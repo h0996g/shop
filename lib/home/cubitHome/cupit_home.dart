@@ -130,4 +130,15 @@ class CupitHome extends Cubit<ShopeHomeStates> {
       emit(BadGetUserDataState());
     });
   }
+
+  LoginModel? updatemodel;
+  void updateProfile(Map<String, dynamic> data) {
+    emit(LodinUpdateProfileState());
+    DioHelper.putData(url: UPDATE, token: TOKEN, data: data).then((value) {
+      updatemodel = LoginModel.fromjson(value.data);
+      emit(GoodUpdateProfileState());
+    }).catchError((error) {
+      emit(BadUpdateProfileState());
+    });
+  }
 }
