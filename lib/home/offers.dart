@@ -27,10 +27,8 @@ class Offers extends StatelessWidget {
               actions: [
                 IconButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Search()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Search()));
                     },
                     icon: const Icon(
                       Icons.search,

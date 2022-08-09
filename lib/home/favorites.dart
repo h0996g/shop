@@ -31,7 +31,8 @@ class Faverites extends StatelessWidget {
                         CupitHome.get(context)
                             .favoritemodel!
                             .data!
-                            .data![index],
+                            .data![index]
+                            .product!,
                         context)),
                     itemCount: CupitHome.get(context)
                         .favoritemodel!
@@ -76,7 +77,7 @@ class Faverites extends StatelessWidget {
   }
 }
 
-ItemFav(DataInfo model, context) =>
+ItemFav(model, context, {isOldprice = true}) =>
     Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
       // const SizedBox(
       //   width: 150,
@@ -93,10 +94,10 @@ ItemFav(DataInfo model, context) =>
           width: 150,
           child: Image(
             // fit: BoxFit.cover,
-            image: NetworkImage(model.product!.image!),
+            image: NetworkImage(model.image!),
           ),
         ),
-        if (model.product!.discount != 0)
+        if (model.discount != 0 && isOldprice)
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             color: Colors.red,
@@ -116,7 +117,7 @@ ItemFav(DataInfo model, context) =>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${model.product!.description}',
+              '${model.description}',
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -128,7 +129,7 @@ ItemFav(DataInfo model, context) =>
             Row(
               children: [
                 Text(
-                  '${model.product!.price}',
+                  '${model.price}',
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.blue),
                 ),
@@ -136,9 +137,9 @@ ItemFav(DataInfo model, context) =>
                 SizedBox(
                   width: 10,
                 ),
-                if (model.product!.oldPrice != model.product!.price)
+                if (model.oldPrice != model.price && isOldprice)
                   Text(
-                    '${model.product!.oldPrice}',
+                    '${model.oldPrice}',
                     style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.grey,
@@ -146,14 +147,12 @@ ItemFav(DataInfo model, context) =>
                   ),
                 const Spacer(),
                 CircleAvatar(
-                  // backgroundColor:
-                  //     CupitHome.get(context).favorites[model.product!.id]!
-                  //         ? Colors.red
-                  //         : Colors.grey,
+                  backgroundColor: CupitHome.get(context).favorites[model.id]!
+                      ? Colors.red
+                      : Colors.grey,
                   child: IconButton(
                     onPressed: () {
-                      CupitHome.get(context)
-                          .changeFavorites(model.product!.id!);
+                      CupitHome.get(context).changeFavorites(model.id!);
                       // CupitHome.get(context).getFAvorite();
                     },
                     icon: const Icon(
